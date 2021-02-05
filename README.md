@@ -6,6 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1. git clone this repo: https://github.com/Vinci-da-Gama/sympli-table-pagination.git
 2. enter into the directory, then install dependencies via yarn or npm: `yarn install` or `npm install`
 3. run project: `yarn start` or `npm start`
+*** the port is 5000 *** you can redefine it in package.json
 
 ## Available Scripts
 
