@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Quick Start:
+1. git clone this repo: https://github.com/Vinci-da-Gama/sympli-table-pagination.git
+2. enter into the directory, then install dependencies via yarn or npm: `yarn install` or `npm install`
+3. run project: `yarn start` or `npm start`
+
 ## Available Scripts
 
 In the project directory, you can run:
