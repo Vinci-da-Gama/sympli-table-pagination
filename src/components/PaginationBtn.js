@@ -15,36 +15,48 @@ const PaginationBtn = ({ previous, next, changePage }) => {
 
   return (
     <tr>
-      <td className="tbc-vertical-middle">{PaginationBtns.Pagination}</td>
       <td>
-        <button
-          type="button"
-          className={`button is-primary mx-1 ${
-            isPrevLoading ? "is-loading" : ""
-          }`}
-          value={previous}
-          disabled={!previous}
-          onClick={(event) => {
-            setIsPrevLoading(true);
-            changePage(event);
-          }}
-        >
-          {PaginationBtns.Back}
-        </button>
-      </td>
-      <td>
-        <button
-          type="button"
-          className={`button is-info ${isNextLoading ? "is-loading" : ""}`}
-          value={next}
-          disabled={!next}
-          onClick={(event) => {
-            setIsNextLoading(true);
-            changePage(event);
-          }}
-        >
-          {PaginationBtns.Next}
-        </button>
+        <div className="columns is-mobile">
+          <div className="column">
+            Current page:{" "}
+            {!previous
+              ? 1
+              : !next
+              ? Number(previous.split("=").pop()) + 1
+              : Number(next.split("=").pop()) - 1}
+          </div>
+          <div className="column">{PaginationBtns.Pagination}</div>
+          <div className="column">
+            <button
+              type="button"
+              className={`button is-primary mx-1 ${
+                isPrevLoading ? "is-loading" : ""
+              }`}
+              value={previous}
+              disabled={!previous}
+              onClick={(event) => {
+                setIsPrevLoading(true);
+                changePage(event);
+              }}
+            >
+              {PaginationBtns.Back}
+            </button>
+          </div>
+          <div className="column">
+            <button
+              type="button"
+              className={`button is-info ${isNextLoading ? "is-loading" : ""}`}
+              value={next}
+              disabled={!next}
+              onClick={(event) => {
+                setIsNextLoading(true);
+                changePage(event);
+              }}
+            >
+              {PaginationBtns.Next}
+            </button>
+          </div>
+        </div>
       </td>
     </tr>
   );

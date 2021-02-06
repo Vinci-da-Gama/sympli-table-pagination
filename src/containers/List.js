@@ -29,7 +29,7 @@ const List = ({
     [getPeople]
   );
 
-  if (!people || people.length === 0)
+  if (!people || (people.length === 0 && errorMessage.length === 0))
     return (
       <Layout pageTitle="Table with list of people">
         <Spinner />
@@ -37,18 +37,24 @@ const List = ({
     );
   return (
     <Layout pageTitle="Table with list of people">
-      <table className="m-0-auto">
+      <table className="m-0-auto table is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
-            {TableHeaders.map((el, idx) => (
-              <th key={el + idx}>{el}</th>
-            ))}
+            <th>
+              <div className="columns is-mobile">
+                {TableHeaders.map((el, idx) => (
+                  <div key={el + idx} className="column">
+                    {el}
+                  </div>
+                ))}
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
           {people.map((el, idx) => (
             <tr key={`${el.name}_${el.birth_year}_${String(idx)}`}>
-              <td colSpan={3}>
+              <td>
                 <NavLink to={`/details/${el.name}`}>
                   <div className="columns is-mobile">
                     <div className="column">{el.name}</div>
