@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { TableHeaders, PaginationBtns } from "../constant/TableText";
-import { RouteLinks } from "../constant/RouteRelated";
-import { Layout, Spinner } from "../components";
+import { TableHeaders } from "../constant/TableText";
+import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
 import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
 
 const List = ({
@@ -21,6 +21,13 @@ const List = ({
     getPeople();
     // return () => {}
   }, [getPeople, resetPeople]);
+
+  const changePage = useCallback(
+    (e) => {
+      getPeople(e.target.value);
+    },
+    [getPeople]
+  );
 
   if (!people || people.length === 0)
     return (
@@ -42,8 +49,8 @@ const List = ({
           {people.map((el, idx) => (
             <tr key={`${el.name}_${el.birth_year}_${String(idx)}`}>
               <td colSpan={3}>
-                <NavLink to={RouteLinks.details}>
-                  <div className="columns">
+                <NavLink to={`/details/${el.name}`}>
+                  <div className="columns is-mobile">
                     <div className="column">{el.name}</div>
                     <div className="column">{el.height}</div>
                     <div className="column">{el.mass}</div>
@@ -55,41 +62,27 @@ const List = ({
         </tbody>
         {(next || previous) && (
           <tfoot>
-            <tr>
-              <td>{PaginationBtns.Pagination}</td>
-              <td>
-                <button
-                  type="button"
-                  className="button is-primary mx-1"
-                  disabled={!previous}
-                  onClick={() => {
-                    getPeople(previous);
-                  }}
-                >
-                  {PaginationBtns.Back}
-                </button>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  className="button is-info"
-                  disabled={!next}
-                  onClick={() => {
-                    getPeople(next);
-                  }}
-                >
-                  {PaginationBtns.Next}
-                </button>
-              </td>
-            </tr>
+            <PaginationBtn
+              previous={previous}
+              next={next}
+              changePage={changePage}
+            />
           </tfoot>
         )}
       </table>
-      <p className="text-center text-danger">
-        {!success && errorMessage.length > 0 ? errorMessage : " "}
-      </p>
+      <ErrorMessage success={success} errorMessage={errorMessage} />
     </Layout>
   );
+};
+
+List.propTypes = {
+  people: PropTypes.array.isRequired,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  success: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  getPeople: PropTypes.func.isRequired,
+  resetPeople: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({

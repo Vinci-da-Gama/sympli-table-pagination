@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Layout = ({ children, pageTitle }) => (
   <div>
     <header>
@@ -19,11 +21,8 @@ const Layout = ({ children, pageTitle }) => (
       .m-0-auto {
         margin: 0 auto;
       }
-      .text-center {
-        text-align: center;
-      }
-      .text-danger {
-        color: red;
+      .tbc-vertical-middle {
+        vertical-align: middle;
       }
       .footer-grid-container {
         display: grid;
@@ -38,5 +37,13 @@ const Layout = ({ children, pageTitle }) => (
     `}</style>
   </div>
 );
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  pageTitle: PropTypes.string.isRequired,
+};
 
 export default Layout;
