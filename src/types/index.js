@@ -1,7 +1,6 @@
 // people
-export const START_GET_PEOPLE = "Sympli/START_GET_PEOPLE";
-export const GET_PEOPLE = "Sympli/GET_PEOPLE";
-export const GET_PEOPLE_SUCCESS = "Sympli/GET_PEOPLE_SUCCESS";
-export const GET_PEOPLE_FAIL = "Sympli/GET_PEOPLE_FAIL";
+export const SET_PEOPLE = "Sympli/SET_PEOPLE";
+export const SET_PEOPLE_FAIL = "Sympli/SET_PEOPLE_FAIL";
+export const RESET_PEOPLE_TO_DEFAULT = "Sympli/RESET_PEOPLE_TO_DEFAULT";
 
 // films
