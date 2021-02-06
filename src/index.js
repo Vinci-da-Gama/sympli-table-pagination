@@ -4,10 +4,10 @@ import { Provider } from "react-redux";
 
 import "./scss/index.scss";
 import App from "./App";
-import { configStore } from "./store/configStore";
+import { ConfigStore } from "./store/ConfigStore";
 import reportWebVitals from "./reportWebVitals";
 
-const store = configStore();
+const store = ConfigStore();
 const targetDom = document.getElementById("root");
 
 render(

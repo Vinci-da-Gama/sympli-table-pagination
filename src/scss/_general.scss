@@ -13,11 +13,11 @@ code {
         monospace;
 }
 
-.logo-img {
+.Layout-img__logo {
     max-width: 150px;
 }
 
-.footer-grid-container {
+.Layout-footer__grid {
     display: grid;
     place-items: center center;
     place-content: center center;
@@ -28,4 +28,14 @@ code {
     width: 100%;
     position: fixed;
     bottom: 0;
+}
+
+.List-link__tablerow {
+    color: $textColor;
+
+    &:hover,
+    &:focus {
+        color: $brandColor;
+        font-weight: 600;
+    }
 }

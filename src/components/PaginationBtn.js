@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { PaginationBtns } from "../constant/TableText";
-// is-loading
+import { getCurrentPageNum } from "../helpers";
+
 const PaginationBtn = ({ previous, next, changePage }) => {
   const [isPrevLoading, setIsPrevLoading] = useState(false);
   const [isNextLoading, setIsNextLoading] = useState(false);
@@ -18,12 +19,7 @@ const PaginationBtn = ({ previous, next, changePage }) => {
       <td>
         <div className="columns is-mobile">
           <div className="column">
-            Current page:{" "}
-            {!previous
-              ? 1
-              : !next
-              ? Number(previous.split("=").pop()) + 1
-              : Number(next.split("=").pop()) - 1}
+            Current page: {getCurrentPageNum(previous, next)}
           </div>
           <div className="column">{PaginationBtns.Pagination}</div>
           <div className="column">

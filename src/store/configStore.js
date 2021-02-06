@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 import RootReducer from "../reduxers";
 
-export const configStore = () =>
+export const ConfigStore = () =>
   createStore(
     RootReducer,
     process.env.REACT_APP_NODE_ENV === "production"

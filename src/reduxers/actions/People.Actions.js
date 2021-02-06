@@ -4,7 +4,7 @@ import {
   RESET_PEOPLE_TO_DEFAULT,
 } from "../../types";
 import { Errors } from "../../constant/Errors";
-import { fetchGet } from "../../helpers/API";
+import { fetchGet } from "../../helpers";
 
 const setPeople = (payload) => ({
   type: SET_PEOPLE,

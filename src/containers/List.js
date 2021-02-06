@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom";
 import { TableHeaders } from "../constant/TableText";
 import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
 import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
+import { setDetails } from "../reduxers/actions/Details.Actions";
+import { getCurrentPageNum } from "../helpers";
 
 const List = ({
   people,
@@ -15,11 +17,13 @@ const List = ({
   errorMessage,
   getPeople,
   resetPeople,
+  setDetails,
 }) => {
   useEffect(() => {
-    resetPeople();
     getPeople();
-    // return () => {}
+    return () => {
+      resetPeople();
+    };
   }, [getPeople, resetPeople]);
 
   const changePage = useCallback(
@@ -55,7 +59,13 @@ const List = ({
           {people.map((el, idx) => (
             <tr key={`${el.name}_${el.birth_year}_${String(idx)}`}>
               <td>
-                <NavLink to={`/details/${el.name}`}>
+                <NavLink
+                  to={`/details/${el.name}`}
+                  className="List-link__tablerow"
+                  onClick={() => {
+                    setDetails(el);
+                  }}
+                >
                   <div className="columns is-mobile">
                     <div className="column">{el.name}</div>
                     <div className="column">{el.height}</div>
@@ -89,6 +99,7 @@ List.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   getPeople: PropTypes.func.isRequired,
   resetPeople: PropTypes.func.isRequired,
+  setDetails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -104,6 +115,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   getPeople: (url) => dispatch(getPeople(url)),
   resetPeople: () => dispatch(resetPeople()),
+  setDetails: (details) => dispatch(setDetails(details)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
