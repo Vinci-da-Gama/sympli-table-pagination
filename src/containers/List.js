@@ -11,7 +11,7 @@ import {
   StorageKeys,
 } from "../constant";
 import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
-import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
+import { getPeople } from "../reduxers/actions/People.Actions";
 import {
   startSetDetails,
   setCurrentPageUrl,
@@ -26,7 +26,6 @@ const List = ({
   success,
   errorMessage,
   getPeople,
-  resetPeople,
   startSetDetails,
   setCurrentPageUrl,
   resetDetails,
@@ -41,10 +40,7 @@ const List = ({
             }/?page=${localStorage.getItem(StorageKeys.currentPageNum)}`
           );
     }
-    return () => {
-      // resetPeople();
-    };
-  }, [getPeople, resetPeople]);
+  }, [getPeople]);
 
   const changePage = useCallback(
     (e) => {
@@ -138,7 +134,6 @@ List.propTypes = {
   success: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   getPeople: PropTypes.func.isRequired,
-  resetPeople: PropTypes.func.isRequired,
   startSetDetails: PropTypes.func.isRequired,
   setCurrentPageUrl: PropTypes.func.isRequired,
   resetDetails: PropTypes.func.isRequired,
@@ -156,7 +151,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   getPeople: (url) => dispatch(getPeople(url)),
-  resetPeople: () => dispatch(resetPeople()),
   startSetDetails: (details) => dispatch(startSetDetails(details)),
   setCurrentPageUrl: (currPageDataUrl) =>
     dispatch(setCurrentPageUrl(currPageDataUrl)),

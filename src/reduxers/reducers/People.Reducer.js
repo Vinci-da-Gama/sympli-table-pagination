@@ -1,8 +1,4 @@
-import {
-  SET_PEOPLE,
-  SET_PEOPLE_FAIL,
-  RESET_PEOPLE_TO_DEFAULT,
-} from "../../types";
+import { SET_PEOPLE, SET_PEOPLE_FAIL } from "../../types";
 
 const initPeopleState = {
   people: [],
@@ -29,8 +25,6 @@ const PeopleReducer = (state = initPeopleState, { type, payload }) => {
         success: false,
         errorMessage: payload.errorMessage,
       };
-    case RESET_PEOPLE_TO_DEFAULT:
-      return initPeopleState;
     default:
       return state;
   }

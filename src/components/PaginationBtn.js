@@ -11,7 +11,6 @@ const PaginationBtn = ({ previous, next, changePage }) => {
   useEffect(() => {
     setIsPrevLoading(false);
     setIsNextLoading(false);
-    // return () => {};
   }, [previous, next]);
 
   return (

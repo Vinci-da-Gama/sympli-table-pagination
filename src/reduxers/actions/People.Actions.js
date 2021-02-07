@@ -1,7 +1,6 @@
 import {
   SET_PEOPLE,
   SET_PEOPLE_FAIL,
-  RESET_PEOPLE_TO_DEFAULT,
 } from "../../types";
 import { Errors } from "../../constant";
 import { fetchGet } from "../../helpers";
@@ -36,7 +35,3 @@ export const getPeople = (url) => async (dispatch /* , getState */) => {
     );
   }
 };
-
-export const resetPeople = () => ({
-  type: RESET_PEOPLE_TO_DEFAULT,
-});

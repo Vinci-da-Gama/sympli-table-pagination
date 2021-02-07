@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { Layout, Spinner } from "../components";
 import {
@@ -21,7 +21,6 @@ const Details = ({
   history,
   details,
   currentPageUrl,
-  success,
   errorMessage,
   setDetails,
   setCurrentPageUrl,
@@ -122,18 +121,16 @@ Details.propTypes = {
   history: PropTypes.object.isRequired,
   details: PropTypes.object.isRequired,
   currentPageUrl: PropTypes.string.isRequired,
-  success: PropTypes.bool,
   errorMessage: PropTypes.string.isRequired,
   setDetails: PropTypes.func.isRequired,
   setCurrentPageUrl: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
-  DetailsReducer: { details, currentPageUrl, success, errorMessage },
+  DetailsReducer: { details, currentPageUrl, errorMessage },
 }) => ({
   details,
   currentPageUrl,
-  success,
   errorMessage,
 });
 
