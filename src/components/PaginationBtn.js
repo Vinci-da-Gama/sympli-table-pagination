@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { PaginationBtns } from "../constant/TableText";
+import { PaginationBtns } from "../constant";
 import { getCurrentPageNum } from "../helpers";
 
 const PaginationBtn = ({ previous, next, changePage }) => {

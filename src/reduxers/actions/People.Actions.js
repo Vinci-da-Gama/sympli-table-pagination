@@ -3,7 +3,7 @@ import {
   SET_PEOPLE_FAIL,
   RESET_PEOPLE_TO_DEFAULT,
 } from "../../types";
-import { Errors } from "../../constant/Errors";
+import { Errors } from "../../constant";
 import { fetchGet } from "../../helpers";
 
 const setPeople = (payload) => ({

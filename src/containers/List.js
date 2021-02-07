@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { TableHeaders } from "../constant/TableText";
+import { PeopleTableHeaders, ApiUrls, PageTitle } from "../constant";
 import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
 import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
-import { setDetails } from "../reduxers/actions/Details.Actions";
+import {
+  startSetDetails,
+  setCurrentPageUrl,
+} from "../reduxers/actions/Details.Actions";
 import { getCurrentPageNum } from "../helpers";
 
 const List = ({
@@ -17,12 +20,13 @@ const List = ({
   errorMessage,
   getPeople,
   resetPeople,
-  setDetails,
+  startSetDetails,
+  setCurrentPageUrl,
 }) => {
   useEffect(() => {
-    getPeople();
+    people.length === 0 && getPeople();
     return () => {
-      resetPeople();
+      // resetPeople();
     };
   }, [getPeople, resetPeople]);
 
@@ -35,18 +39,18 @@ const List = ({
 
   if (!people || (people.length === 0 && errorMessage.length === 0))
     return (
-      <Layout pageTitle="Table with list of people">
+      <Layout pageTitle={PageTitle.People}>
         <Spinner />
       </Layout>
     );
   return (
-    <Layout pageTitle="Table with list of people">
+    <Layout pageTitle={PageTitle.People}>
       <table className="m-0-auto table is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>
               <div className="columns is-mobile">
-                {TableHeaders.map((el, idx) => (
+                {PeopleTableHeaders.map((el, idx) => (
                   <div key={el + idx} className="column">
                     {el}
                   </div>
@@ -63,13 +67,25 @@ const List = ({
                   to={`/details/${el.name}`}
                   className="List-link__tablerow"
                   onClick={() => {
-                    setDetails(el);
+                    startSetDetails({
+                      name: el.name,
+                      height: el.height,
+                      birth_year: el.birth_year,
+                      gender: el.gender,
+                      films: el.films,
+                      targetPeopleUrl: el.url,
+                    });
+                    setCurrentPageUrl(
+                      `${ApiUrls.rootUrl}/${
+                        ApiUrls.segments.people
+                      }/?page=${getCurrentPageNum(previous, next)}`
+                    );
                   }}
                 >
                   <div className="columns is-mobile">
-                    <div className="column">{el.name}</div>
-                    <div className="column">{el.height}</div>
-                    <div className="column">{el.mass}</div>
+                    <div className="column">{el.name ? el.name : ""}</div>
+                    <div className="column">{el.height ? el.height : ""}</div>
+                    <div className="column">{el.mass ? el.mass : ""}</div>
                   </div>
                 </NavLink>
               </td>
@@ -99,7 +115,8 @@ List.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   getPeople: PropTypes.func.isRequired,
   resetPeople: PropTypes.func.isRequired,
-  setDetails: PropTypes.func.isRequired,
+  startSetDetails: PropTypes.func.isRequired,
+  setCurrentPageUrl: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -115,7 +132,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => ({
   getPeople: (url) => dispatch(getPeople(url)),
   resetPeople: () => dispatch(resetPeople()),
-  setDetails: (details) => dispatch(setDetails(details)),
+  startSetDetails: (details) => dispatch(startSetDetails(details)),
+  setCurrentPageUrl: (currPeopleDataUrl) =>
+    dispatch(setCurrentPageUrl(currPeopleDataUrl)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

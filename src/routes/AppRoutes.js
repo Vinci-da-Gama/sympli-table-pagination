@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { RouteLinks } from "../constant/RouteRelated";
+import { RouteLinks } from "../constant";
 import List from "../containers/List";
 import { NoFound, Spinner } from "../components";
 
