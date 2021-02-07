@@ -30,7 +30,7 @@ const PaginationBtn = ({ previous, next, changePage }) => {
               value={previous}
               disabled={!previous}
               onClick={(event) => {
-                localStorage.setItem(
+                sessionStorage.setItem(
                   StorageKeys.currentPageNum,
                   previous.split("=").pop()
                 );
@@ -48,7 +48,7 @@ const PaginationBtn = ({ previous, next, changePage }) => {
               value={next}
               disabled={!next}
               onClick={(event) => {
-                localStorage.setItem(
+                sessionStorage.setItem(
                   StorageKeys.currentPageNum,
                   next.split("=").pop()
                 );

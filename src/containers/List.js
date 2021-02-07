@@ -32,12 +32,12 @@ const List = ({
 }) => {
   useEffect(() => {
     if (people.length === ConstNumbers.ZERO) {
-      !localStorage.getItem(StorageKeys.currentPageNum)
+      !sessionStorage.getItem(StorageKeys.currentPageNum)
         ? getPeople()
         : getPeople(
             `${ApiUrls.rootUrl}/${
               ApiUrls.segments.people
-            }/?page=${localStorage.getItem(StorageKeys.currentPageNum)}`
+            }/?page=${sessionStorage.getItem(StorageKeys.currentPageNum)}`
           );
     }
   }, [getPeople]);
@@ -84,7 +84,7 @@ const List = ({
                   className="List-link__tablerow"
                   onClick={() => {
                     resetDetails();
-                    localStorage.setItem(
+                    sessionStorage.setItem(
                       StorageKeys.currentPageNum,
                       String(getCurrentPageNum(previous, next))
                     );
