@@ -4,7 +4,13 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { Layout, Spinner } from "../components";
-import { DetailsHeaders, RouteLinks, PageTitle } from "../constant";
+import {
+  DetailsHeaders,
+  RouteLinks,
+  PageTitle,
+  ConstNumbers,
+  StorageKeys,
+} from "../constant";
 import { capitalizeString } from "../helpers";
 import { getPeople } from "../reduxers/actions/People.Actions";
 import {
@@ -25,25 +31,29 @@ const Details = ({
   resetDetails,
 }) => {
   useEffect(() => {
-    if (Object.keys(details).length > 0) {
+    if (Object.keys(details).length > ConstNumbers.ZERO) {
       localStorage.setItem("targetPerson", JSON.stringify(details));
       localStorage.setItem("currentPageUrl", currentPageUrl);
     }
     if (
-      (Object.keys(details).length === 0 || !details) &&
+      (Object.keys(details).length === ConstNumbers.ZERO || !details) &&
       currentPageUrl === ""
     ) {
-      setDetails(JSON.parse(localStorage.getItem("targetPerson")));
-      setCurrentPageUrl(localStorage.getItem("currentPageUrl"));
+      setDetails(JSON.parse(localStorage.getItem(StorageKeys.targetPerson)));
+      setCurrentPageUrl(localStorage.getItem(StorageKeys.currentPageUrl));
     }
 
     return () => {
-      localStorage.removeItem("targetPerson");
-      localStorage.removeItem("currentPageUrl");
+      localStorage.removeItem(StorageKeys.targetPerson);
+      localStorage.removeItem(StorageKeys.currentPageUrl);
+      debugger;
     };
   }, [details]);
 
-  if (Object.keys(details).length === 0 && errorMessage.length === 0)
+  if (
+    Object.keys(details).length === ConstNumbers.ZERO &&
+    errorMessage.length === ConstNumbers.ZERO
+  )
     return (
       <Layout pageTitle={PageTitle.Details}>
         <Spinner />
@@ -53,45 +63,43 @@ const Details = ({
     <Layout pageTitle={PageTitle.Details}>
       <section>
         <ul className="Details-ul__noliststyle">
-          {Object.keys(details)
-            .filter((el) => el !== "targetPeopleUrl")
-            .map((el, idx) => {
-              if (el === Object.keys(DetailsHeaders)[0]) {
-                return (
-                  <li key={el + String(idx)}>
-                    <div className="columns is-mobile">
-                      <div className="column">{DetailsHeaders[el]}</div>
-                      <div className="column">
-                        {!details[el] && details[el].length === 0 ? (
-                          "No film..."
-                        ) : (
-                          <ol className="Details-ul__noliststyle">
-                            {details[el].map((elem, index) => (
-                              <li key={elem + String(index)}>
-                                {index + 1}: {elem}
-                              </li>
-                            ))}
-                          </ol>
-                        )}
-                      </div>
+          {Object.keys(details).map((el, idx) => {
+            if (el === Object.keys(DetailsHeaders)[ConstNumbers.ZERO]) {
+              return (
+                <li key={el + String(idx)}>
+                  <div className="columns is-mobile">
+                    <div className="column">{DetailsHeaders[el]}</div>
+                    <div className="column">
+                      {!details[el] && details[el].length === 0 ? (
+                        "No film..."
+                      ) : (
+                        <ol className="Details-ul__noliststyle">
+                          {details[el].map((elem, index) => (
+                            <li key={elem + String(index)}>
+                              {index + ConstNumbers.ONE}: {elem}
+                            </li>
+                          ))}
+                        </ol>
+                      )}
                     </div>
-                  </li>
-                );
-              } else {
-                return (
-                  <li key={el + idx}>
-                    <div className="columns is-mobile">
-                      <div className="column">
-                        {capitalizeString(el).replace("_", " ")}
-                      </div>
-                      <div className="column">
-                        {details[el] ? details[el] : ""}
-                      </div>
+                  </div>
+                </li>
+              );
+            } else {
+              return (
+                <li key={el + idx}>
+                  <div className="columns is-mobile">
+                    <div className="column">
+                      {capitalizeString(el).replace("_", " ")}
                     </div>
-                  </li>
-                );
-              }
-            })}
+                    <div className="column">
+                      {details[el] ? details[el] : ""}
+                    </div>
+                  </div>
+                </li>
+              );
+            }
+          })}
           <li>
             <div className="columns is-mobile">
               <div className="column">&nbsp;</div>

@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { PeopleTableHeaders, ApiUrls, PageTitle } from "../constant";
+import {
+  PeopleTableHeaders,
+  ApiUrls,
+  PageTitle,
+  ConstNumbers,
+} from "../constant";
 import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
 import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
 import {
@@ -24,7 +29,7 @@ const List = ({
   setCurrentPageUrl,
 }) => {
   useEffect(() => {
-    people.length === 0 && getPeople();
+    people.length === ConstNumbers.ZERO && getPeople();
     return () => {
       // resetPeople();
     };
@@ -37,7 +42,11 @@ const List = ({
     [getPeople]
   );
 
-  if (!people || (people.length === 0 && errorMessage.length === 0))
+  if (
+    !people ||
+    (people.length === ConstNumbers.ZERO &&
+      errorMessage.length === ConstNumbers.ZERO)
+  )
     return (
       <Layout pageTitle={PageTitle.People}>
         <Spinner />
@@ -73,7 +82,6 @@ const List = ({
                       birth_year: el.birth_year,
                       gender: el.gender,
                       films: el.films,
-                      targetPeopleUrl: el.url,
                     });
                     setCurrentPageUrl(
                       `${ApiUrls.rootUrl}/${

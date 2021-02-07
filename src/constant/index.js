@@ -7,6 +7,8 @@ import {
   PaginationBtns,
 } from "./PeopleAndDetailsText";
 import { PageTitle } from "./PageTitle";
+import { ConstNumbers } from "./ConstNumbers";
+import { StorageKeys } from "./StorageKeys";
 
 export {
   ApiUrls,
@@ -16,4 +18,6 @@ export {
   DetailsHeaders,
   PaginationBtns,
   PageTitle,
+  ConstNumbers,
+  StorageKeys,
 };
