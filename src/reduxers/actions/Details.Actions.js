@@ -1,4 +1,9 @@
-import { SET_DETAILS, SET_CURRENT_PAGE_URL, GET_FILMS_FAIL } from "../../types";
+import {
+  SET_DETAILS,
+  SET_CURRENT_PAGE_URL,
+  GET_FILMS_FAIL,
+  RESET_DETAILS_TO_DEFAULT,
+} from "../../types";
 import { Errors } from "../../constant";
 import { fetchGet } from "../../helpers";
 
@@ -38,4 +43,8 @@ export const startSetDetails = (details) => async (dispatch) => {
 export const setCurrentPageUrl = (payload) => ({
   type: SET_CURRENT_PAGE_URL,
   payload,
+});
+
+export const resetDetails = () => ({
+  type: RESET_DETAILS_TO_DEFAULT,
 });

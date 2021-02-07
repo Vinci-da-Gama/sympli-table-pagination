@@ -1,0 +1,35 @@
+@media all and (min-width: 300px) {
+    .Details-section__center {
+        width: 96%;
+    }
+}
+
+@media all and (min-width: 480px) {
+    .Details-section__center {
+        width: 83%;
+    }
+}
+
+@media all and (min-width: 576px) {
+    .Details-section__center {
+        width: 66%;
+    }
+}
+
+@media all and (min-width: 768px) {
+    .Details-section__center {
+        width: 50%;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .Details-section__center {
+        width: 40%;
+    }
+}
+
+@media all and (min-width: 1296px) {
+    .Details-section__center {
+        width: 30%;
+    }
+}

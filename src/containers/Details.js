@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { Layout, Spinner } from "../components";
 import {
@@ -12,7 +12,6 @@ import {
   StorageKeys,
 } from "../constant";
 import { capitalizeString } from "../helpers";
-import { getPeople } from "../reduxers/actions/People.Actions";
 import {
   setDetails,
   setCurrentPageUrl,
@@ -24,7 +23,6 @@ const Details = ({
   currentPageUrl,
   success,
   errorMessage,
-  getPeople,
   setDetails,
   setCurrentPageUrl,
 }) => {
@@ -50,15 +48,16 @@ const Details = ({
   if (
     Object.keys(details).length === ConstNumbers.ZERO &&
     errorMessage.length === ConstNumbers.ZERO
-  )
+  ) {
     return (
       <Layout pageTitle={PageTitle.Details}>
         <Spinner />
       </Layout>
     );
+  }
   return (
     <Layout pageTitle={PageTitle.Details}>
-      <section>
+      <section className="Details-section__center">
         <ul className="Details-ul__noliststyle">
           {Object.keys(details).map((el, idx) => {
             if (el === Object.keys(DetailsHeaders)[ConstNumbers.ZERO]) {
@@ -106,7 +105,6 @@ const Details = ({
                   className="button is-primary"
                   onClick={() => {
                     history.push(RouteLinks.initLand);
-                    getPeople(currentPageUrl);
                   }}
                 >
                   Back
@@ -126,7 +124,6 @@ Details.propTypes = {
   currentPageUrl: PropTypes.string.isRequired,
   success: PropTypes.bool,
   errorMessage: PropTypes.string.isRequired,
-  getPeople: PropTypes.func.isRequired,
   setDetails: PropTypes.func.isRequired,
   setCurrentPageUrl: PropTypes.func.isRequired,
 };
@@ -141,10 +138,9 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getPeople: (url) => dispatch(getPeople(url)),
   setDetails: (details) => dispatch(setDetails(details)),
-  setCurrentPageUrl: (currPeopleDataUrl) =>
-    dispatch(setCurrentPageUrl(currPeopleDataUrl)),
+  setCurrentPageUrl: (currPageDataUrl) =>
+    dispatch(setCurrentPageUrl(currPageDataUrl)),
 });
 
 export default connect(

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { PaginationBtns } from "../constant";
+import { PaginationBtns, StorageKeys } from "../constant";
 import { getCurrentPageNum } from "../helpers";
 
 const PaginationBtn = ({ previous, next, changePage }) => {
@@ -31,6 +31,10 @@ const PaginationBtn = ({ previous, next, changePage }) => {
               value={previous}
               disabled={!previous}
               onClick={(event) => {
+                localStorage.setItem(
+                  StorageKeys.currentPageNum,
+                  previous.split("=").pop()
+                );
                 setIsPrevLoading(true);
                 changePage(event);
               }}
@@ -45,6 +49,10 @@ const PaginationBtn = ({ previous, next, changePage }) => {
               value={next}
               disabled={!next}
               onClick={(event) => {
+                localStorage.setItem(
+                  StorageKeys.currentPageNum,
+                  next.split("=").pop()
+                );
                 setIsNextLoading(true);
                 changePage(event);
               }}

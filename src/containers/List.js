@@ -8,12 +8,14 @@ import {
   ApiUrls,
   PageTitle,
   ConstNumbers,
+  StorageKeys,
 } from "../constant";
 import { Layout, Spinner, PaginationBtn, ErrorMessage } from "../components";
 import { getPeople, resetPeople } from "../reduxers/actions/People.Actions";
 import {
   startSetDetails,
   setCurrentPageUrl,
+  resetDetails,
 } from "../reduxers/actions/Details.Actions";
 import { getCurrentPageNum } from "../helpers";
 
@@ -27,9 +29,18 @@ const List = ({
   resetPeople,
   startSetDetails,
   setCurrentPageUrl,
+  resetDetails,
 }) => {
   useEffect(() => {
-    people.length === ConstNumbers.ZERO && getPeople();
+    if (people.length === ConstNumbers.ZERO) {
+      !localStorage.getItem(StorageKeys.currentPageNum)
+        ? getPeople()
+        : getPeople(
+            `${ApiUrls.rootUrl}/${
+              ApiUrls.segments.people
+            }/?page=${localStorage.getItem(StorageKeys.currentPageNum)}`
+          );
+    }
     return () => {
       // resetPeople();
     };
@@ -76,6 +87,11 @@ const List = ({
                   to={`/details/${el.name}`}
                   className="List-link__tablerow"
                   onClick={() => {
+                    resetDetails();
+                    localStorage.setItem(
+                      StorageKeys.currentPageNum,
+                      String(getCurrentPageNum(previous, next))
+                    );
                     startSetDetails({
                       name: el.name,
                       height: el.height,
@@ -125,6 +141,7 @@ List.propTypes = {
   resetPeople: PropTypes.func.isRequired,
   startSetDetails: PropTypes.func.isRequired,
   setCurrentPageUrl: PropTypes.func.isRequired,
+  resetDetails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -141,8 +158,9 @@ const mapDispatchToProps = (dispatch) => ({
   getPeople: (url) => dispatch(getPeople(url)),
   resetPeople: () => dispatch(resetPeople()),
   startSetDetails: (details) => dispatch(startSetDetails(details)),
-  setCurrentPageUrl: (currPeopleDataUrl) =>
-    dispatch(setCurrentPageUrl(currPeopleDataUrl)),
+  setCurrentPageUrl: (currPageDataUrl) =>
+    dispatch(setCurrentPageUrl(currPageDataUrl)),
+  resetDetails: () => dispatch(resetDetails()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

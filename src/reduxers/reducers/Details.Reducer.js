@@ -1,4 +1,9 @@
-import { SET_DETAILS, SET_CURRENT_PAGE_URL, GET_FILMS_FAIL } from "../../types";
+import {
+  SET_DETAILS,
+  SET_CURRENT_PAGE_URL,
+  GET_FILMS_FAIL,
+  RESET_DETAILS_TO_DEFAULT,
+} from "../../types";
 
 const initDetailsState = {
   details: {},
@@ -28,6 +33,8 @@ export default (state = initDetailsState, { type, payload }) => {
         ...state,
         currentPageUrl: payload,
       };
+    case RESET_DETAILS_TO_DEFAULT:
+      return initDetailsState;
     default:
       return state;
   }
