@@ -6,7 +6,7 @@ import {
 import { Errors } from "../../constant";
 import { fetchGet } from "../../helpers";
 
-const setPeople = (payload) => ({
+export const setPeople = (payload) => ({
   type: SET_PEOPLE,
   payload,
 });

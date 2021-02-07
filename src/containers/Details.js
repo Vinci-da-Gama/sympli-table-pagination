@@ -16,7 +16,6 @@ import { getPeople } from "../reduxers/actions/People.Actions";
 import {
   setDetails,
   setCurrentPageUrl,
-  resetDetails,
 } from "../reduxers/actions/Details.Actions";
 
 const Details = ({
@@ -28,7 +27,6 @@ const Details = ({
   getPeople,
   setDetails,
   setCurrentPageUrl,
-  resetDetails,
 }) => {
   useEffect(() => {
     if (Object.keys(details).length > ConstNumbers.ZERO) {
@@ -46,7 +44,6 @@ const Details = ({
     return () => {
       localStorage.removeItem(StorageKeys.targetPerson);
       localStorage.removeItem(StorageKeys.currentPageUrl);
-      debugger;
     };
   }, [details]);
 
@@ -132,7 +129,6 @@ Details.propTypes = {
   getPeople: PropTypes.func.isRequired,
   setDetails: PropTypes.func.isRequired,
   setCurrentPageUrl: PropTypes.func.isRequired,
-  resetDetails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -149,7 +145,6 @@ const mapDispatchToProps = (dispatch) => ({
   setDetails: (details) => dispatch(setDetails(details)),
   setCurrentPageUrl: (currPeopleDataUrl) =>
     dispatch(setCurrentPageUrl(currPeopleDataUrl)),
-  resetDetails: () => dispatch(resetDetails()),
 });
 
 export default connect(

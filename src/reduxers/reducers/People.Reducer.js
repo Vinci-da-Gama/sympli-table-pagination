@@ -26,8 +26,6 @@ const PeopleReducer = (state = initPeopleState, { type, payload }) => {
     case SET_PEOPLE_FAIL:
       return {
         ...state,
-        // next: "",
-        // previous: "",
         success: false,
         errorMessage: payload.errorMessage,
       };
